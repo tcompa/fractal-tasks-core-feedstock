@@ -1,14 +1,13 @@
+{% set version = "2.0.1" %}
 {% set python_min = "3.11.0" %}
-{% set name = "fractal-tasks-core" %}
-{% set version = "1.5.4" %}
 
 package:
-  name: {{ name|lower }}
+  name: fractal-tasks-core
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/fractal_tasks_core-{{ version }}.tar.gz
-  sha256: 91e402ff0399189b6b4075d075ffe2b3001aa5214ae24cc6198ed2c7ab4479a1
+  url: https://pypi.org/packages/source/f/fractal-tasks-core/fractal_tasks_core-{{ version }}.tar.gz
+  sha256: 8a6b2e148ea87223a5307c11a6d0472cde940f743c79d20ec63dbb608e4844b4
 
 build:
   noarch: python
@@ -17,35 +16,20 @@ build:
 
 requirements:
   host:
-    - python {{ python_min }}
-    - poetry-core
+    - python >=3.11,<3.15
+    - hatchling
+    - hatch-vcs
     - pip
   run:
-    - python >={{ python_min }},<4.0.0
-    - dask-core >=2023.1.0
-    - fsspec !=2023.9.0
-    - zarr >=2.13.6,<3
-    - numpy <=2.1.0
-    - pandas >=1.2.0
-    - lxml >=4.9.1,<5.0.0
-    - pydantic >2,<=2.8.2
-    - docstring_parser >=0.15.0,<0.16.0
-    - anndata >=0.8.0,<0.11.0
-    - filelock 3.13.*
-    - ngio >=0.2.4,<0.3.0
-    - fractal-task-tools =0.0.12
-  run_constrained:
-    - Pillow >=9.1.1
-    - imageio-ffmpeg >=0.4.7,<0.5.0
+    - python >=3.11,<3.15
+    - numpy >=2.0.0
+    - dask-core >=2023.1.0,<2025.11.0
+    - pydantic >2.11.0,<=2.12.0
+    - ngio >=0.5.8,<0.6.0
+    - fractal-tasks-utils >=0.1.3,<0.2.0
+    - fractal-task-tools >=0.4.0,<0.5.0
     - scikit-image >=0.19
-    - napari-segment-blobs-and-things-with-membranes >=0.3.3,<0.4.0
-    - napari-workflows >=0.2.8,<0.3.0
-    - stackview <0.9.0
-    - napari-skimage-regionprops >=0.8.1,<0.9.0
-    - napari-tools-menu >=0.1.19,<0.2.0
-    - cellpose >=2.2.0,<2.3.0
-    - pytorch <=3.0.0
-    - image_registration >=0.2.9
+    - image-registration >=0.2.9
 
 test:
   imports:
@@ -54,15 +38,17 @@ test:
     - pip check
   requires:
     - pip
-    - python {{ python_min }}
+    - python {{ python_min }}.*
 
 about:
   home: https://github.com/fractal-analytics-platform/fractal-tasks-core
-  summary: Core bioimage-analysis library and tasks of the Fractal analytics platform
+  summary: Reference task package for the Fractal analytics platform
+  doc_url: https://fractal-analytics-platform.github.io/fractal-tasks-core
   license: BSD-3-Clause
   license_file: LICENSE
 
 extra:
   recipe-maintainers:
-    - jluethi
     - tcompa
+    - jluethi
+    - lorenzocerrone
